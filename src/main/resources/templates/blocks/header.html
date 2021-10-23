@@ -1,0 +1,24 @@
+<div th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                    <li><a href="/tests" class="nav-link px-2 text-white">Тесты</a></li>
+                    <li><a href="/test/add" class="nav-link px-2 text-white" sec:authorize="hasRole('ADMIN')">Создать тест</a></li>
+                </ul>
+
+                <div class="text-end">
+                    <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-outline-light me-2">Войти</a>
+                    <a sec:authorize="!isAuthenticated()" href="/registration" type="button" class="btn btn-warning">Регистрация</a>
+                    <span sec:authorize="isAuthenticated()">[[${#httpServletRequest.remoteUser}]]</span>
+                </div>
+                <form th:action="@{/logout}" method="post" >
+                    <input sec:authorize="isAuthenticated()" type="submit" class="btn btn-danger mx-3" value="Выйти"/>
+                </form>
+            </div>
+        </div>
+    </header>
+</div>
